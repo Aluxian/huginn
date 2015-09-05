@@ -9,7 +9,7 @@ apt-get install -y runit build-essential git zlib1g-dev libyaml-dev \
   libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev \
   curl openssh-server checkinstall libxml2-dev libxslt-dev \
   libcurl4-openssl-dev libicu-dev logrotate python-docutils \
-  pkg-config cmake nodejs graphviz ufw
+  pkg-config cmake nodejs graphviz
 
 # build and install ruby
 apt-get remove -y ruby1.8 ruby1.9
@@ -58,11 +58,3 @@ sudo -u huginn -H chmod o-rwx .env
 
 # install gems
 sudo -u huginn -H bundle install --deployment --without development test
-
-# firewall
-yes | ufw enable
-ufw default deny incoming
-ufw default allow outgoing
-ufw allow ssh
-ufw allow www
-ufw reload
