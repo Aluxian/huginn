@@ -66,3 +66,11 @@ apt-get update
 apt-get install newrelic-sysmond
 nrsysmond-config --set license_key=
 /etc/init.d/newrelic-sysmond start
+
+# firewall
+yes | ufw enable
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow ssh
+ufw allow www
+ufw reload
