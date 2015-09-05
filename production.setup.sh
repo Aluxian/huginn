@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# add the new relic repo
-echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list
-wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -
-
 # update
 apt-get update -y
 apt-get upgrade -y
@@ -13,7 +9,7 @@ apt-get install -y runit build-essential git zlib1g-dev libyaml-dev \
   libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev \
   curl openssh-server checkinstall libxml2-dev libxslt-dev \
   libcurl4-openssl-dev libicu-dev logrotate python-docutils \
-  pkg-config cmake nodejs graphviz
+  pkg-config cmake nodejs graphviz ufw
 
 # build and install ruby
 apt-get remove -y ruby1.8 ruby1.9
@@ -62,11 +58,6 @@ sudo -u huginn -H chmod o-rwx .env
 
 # install gems
 sudo -u huginn -H bundle install --deployment --without development test
-
-# install new relic monitoring
-apt-get install newrelic-sysmond
-nrsysmond-config --set license_key=
-/etc/init.d/newrelic-sysmond start
 
 # firewall
 yes | ufw enable
