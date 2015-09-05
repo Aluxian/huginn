@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# add the new relic repo
+echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list
+wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -
+
 # update
 apt-get update -y
 apt-get upgrade -y
@@ -60,9 +64,6 @@ sudo -u huginn -H chmod o-rwx .env
 sudo -u huginn -H bundle install --deployment --without development test
 
 # install new relic monitoring
-echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list
-wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -
-apt-get update
 apt-get install newrelic-sysmond
 nrsysmond-config --set license_key=
 /etc/init.d/newrelic-sysmond start
