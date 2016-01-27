@@ -129,12 +129,16 @@ module Agents
         error "Invalid method '#{method}'"
       end
 
+      if interpolated(payload)['tw_auth'] != nil
+        headers['Authorization'] = interpolated(payload)['tw_auth']
+      end
+
       response = faraday.run_request(method.to_sym, url, body, headers) { |request|
         request.params.update(params) if params
       }
 
       if boolify(interpolated['emit_events'])
-        create_event payload: { body: response.body, headers: response.headers, status: response.status }
+        create_event payload: { body: response.body, headers: response.headers, status: response.status, request_headers: headers }
       end
     end
   end
