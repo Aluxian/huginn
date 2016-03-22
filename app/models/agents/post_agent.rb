@@ -138,7 +138,7 @@ module Agents
       }
 
       if boolify(interpolated['emit_events'])
-        create_event payload: { body: response.body, headers: response.headers, status: response.status, request_headers: headers }
+        create_event payload: { body: response.body, headers: response.headers, status: response.status, request_headers: headers, request_body: body, request_url: url }
       end
     end
   end
